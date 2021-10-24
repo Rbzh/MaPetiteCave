@@ -1,13 +1,22 @@
-import './App.css';
-import { BottleDetail } from './components/BottleDetail';
+import { Box } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { BottleList } from './components/BottleList';
 import { bottlesMock } from './data/BottlesMock';
 
+const useStyles = makeStyles({
+  app: {
+    padding: '30px'
+  },
+});
+
 function App() {
+
+  const classes = useStyles();
+
   return (
-    <div className="App">
+    <Box className={classes.app}>
       <BottleList bottles={bottlesMock} />
-    </div>
+    </Box>
   );
 }
 
