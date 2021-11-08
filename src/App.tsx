@@ -1,23 +1,24 @@
-import { Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { BottleList } from './components/BottleList';
-import { bottlesMock } from './data/BottlesMock';
-
-const useStyles = makeStyles({
-  app: {
-    padding: '30px'
-  },
-});
+import 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
+import { FirebaseAppProvider, useFirebaseApp, FirestoreProvider } from 'reactfire';
+import { BottlesWrapper } from './components/BottlesWrapper';
+import { firebaseConfig } from './FirebaseConfig';
 
 function App() {
-
-  const classes = useStyles();
-
   return (
-    <Box className={classes.app}>
-      <BottleList bottles={bottlesMock} />
-    </Box>
+    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+      <FirebaseApp />
+    </FirebaseAppProvider>
   );
+}
+
+function FirebaseApp() {
+  const firestoreInstance = getFirestore(useFirebaseApp());
+  return (
+    <FirestoreProvider sdk={firestoreInstance}>
+      <BottlesWrapper />
+    </FirestoreProvider>
+  )
 }
 
 export default App;
